@@ -44,7 +44,7 @@ NUS ME5413 Autonomous Mobile Robotics Final Project
 
 ## Installation
 
-Fork this repo to your own github and clone the repository:
+Fork this repository to your own github and clone it:
 
 ```bash
 # Clone your own fork of this repo (assuming home here `~/`)
