@@ -72,9 +72,12 @@ roslaunch me5413_world world.launch
 
 ### 1. Mapping
 
-You can use any SLAM algorithm of your choice. We used A-LOAM to build mapfor this project:
-As A-LOAM builds 3-D map (point cloud), we used octamap server to convert 3D point cloud to a 2D-grid map. 
+You can use any SLAM algorithm of your choice. We used A-LOAM to build map for this project.
+
+
+As A-LOAM builds 3-D map (point cloud), we used 'octamap server' to convert 3D point cloud to a 2D-grid map. 
 We have provided sample code to launch octampping node and A-LOAM. 
+
 
 ```bash
 # Launch Octamapping Node
@@ -85,12 +88,12 @@ roslaunch octomap_server octomap_server.launch
 # Launch A-LOAM
 roslaunch aloam_roslaunch aloam_velodyne aloam_velodyne_VLP_16.launch
 ```
-**Note:** After launchin A-LOAM, add the following topics in rviz:
+**Note:** After launching A-LOAM, add the following topics in rviz:
           1. Map topic: /projected_map
           2. OccupyGrid topic: /octomap_full
           3. OccupyMap topic: /octomap_binary
 
-After finishing mapping, run the following command in the thrid terminal to save the map:
+After finishing mapping, run the following command in a new terminal to save the map:
 
 ```bash
 # Save the map as `my_map` in the `maps/` folder
@@ -98,14 +101,14 @@ roscd me5413_world/maps/
 rosrun map_server map_saver -f your_map_name map:=/map
 ```
 
-**Note:** Map for A-LOAM is saved in maps folder map_improved_1.pgm and map_improved_1.yaml file.
+**Note:** Map for A-LOAM is saved in map_improved_1.pgm and map_improved_1.yaml file.
 
 
 ### 2. Navigation
 
 Once mapping is complete, terminate the mapping process and relaunch gazebo.
 
-Load the navigation by executing the following command in a new terminal window
+Load the navigation stack by executing the following command in a new terminal window.
 
 ```bash
 # Launch localizer and planner
