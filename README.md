@@ -1,7 +1,7 @@
 # ME5413_Final_Project
 
 NUS ME5413 Autonomous Mobile Robotics Final Project
-> Authors: Hridik Kajaria, Atharva Madkaikar, Xie Linji, Guo Ziyi
+> Authors: Atharva Madkaikar, Hridik Kajaria, Xie Linji, Guo Ziyi
 
 ![Ubuntu 20.04](https://img.shields.io/badge/OS-Ubuntu_20.04-informational?style=flat&logo=ubuntu&logoColor=white&color=2bbc8a)
 ![ROS Noetic](https://img.shields.io/badge/Tools-ROS_Noetic-informational?style=flat&logo=ROS&logoColor=white&color=2bbc8a)
@@ -102,6 +102,9 @@ A keyboard teleop controller has been provided to manually control the robot to 
 roslaunch me5413_world manual.launch
 ```
 
+![manual control](src/me5413_world/media/rviz_manual.png)
+
+**Figure**: Manual Controller
 
 ### 1. Mapping
 
@@ -139,10 +142,15 @@ rosrun map_server map_saver -f your_map_name map:=/map
 **Note:** Parameters of our custom map are saved in map_improved_1.pgm and map_improved_1.yaml file.
 
 
-<div style="display: flex; justify-content: center; gap: 10px;">
-  <img src="src/me5413_world/media/ALOAM.png" width="300" height="500">
-  <img src="src/me5413_world/media/grid_map.png" width="300" height="500">
-</div>
+
+<img src="src/me5413_world/media/ALOAM.png" width="300">
+
+**Figure:** SLAM using A-LOAM
+
+
+<img src="src/me5413_world/media/grid_map.png" width="300">
+
+**Figure:** Final grid map obtained
 
 
 ### 2. Navigation
@@ -156,10 +164,21 @@ For this project, Adaptive Monte Carlo (AMCL) particle filter was used for local
 roslaunch me5413_world navigation.launch
 ```
 
-<div style="display: flex; justify-content: center; gap: 10px;">
-  <img src="src/me5413_world/media/NAV_1.png" width="500" height="300">
-  <img src="src/me5413_world/media/NAV_2.png" width="500" height="300">
-</div>
+
+<img src="src/me5413_world/media/NAV_1.png" width="800" height="500">
+
+**Figure:** Robot moving towards assembly area
+
+
+<img src="src/me5413_world/media/NAV_2.png" width="800" height="500">
+
+**Figure:** Robot moving towards packing area
+
+
+<img src="src/me5413_world/media/NAV_4.png" width="800" height="500">
+
+**Figure:** Robot moving towards delivery area
+
 
 ## License
 
