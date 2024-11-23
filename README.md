@@ -44,56 +44,91 @@ NUS ME5413 Autonomous Mobile Robotics Final Project
 
 ## Installation
 
-Fork this repository to your own github and clone it:
+This repository is a ROS workspace, containing 4 ros packages:
+* `interactive tools`
+* `jackal_description`
+* `me5413_world`
+* `octomap_server`
+
+**Note:** Octomap server ROS package can be installed seperately. Please refer to ROS wiki.
+[Octomap Server Doc](https://wiki.ros.org/octomap_server)
+
+Clone this repository on your local machine:
 
 ```bash
-# Clone your own fork of this repo (assuming home here `~/`)
+# Clone the repository
 cd
-git clone https://github.com/<YOUR_GITHUB_USERNAME>/ME5413_Final_Project_Group_17.git
+git clone https://github.com/madkaikaratharva/ME5413_Final_Project_Group_17.git
 cd ME5413_Final_Project_Group_17
+
+# Install all the dependencies
+rosdep install --from-paths src --ignore-src -r -y
+
+# Build the workspace
+catkin_make
 
 # Source this directory everytime you launch a new terminal
 source devel/setup.bash
 ```
 
-**Note:** You will need to install A-LOAM or any other SLAM algorithms before proceeding further.
+This project uses a custom gazebo world. You will need to download the necessary models in the `~/.gazebo/models/` directory.
+
+```bash
+# Official Gazebo Model
+cd
+mkdir -p .gazebo/models
+git clone https://github.com/osrf/gazebo_models.git
+cp -r ~/gazebo_models/* ~/.gazebo/models
+
+# Custom Model
+cp -r ~/ME5413_Final_Project/src/me5413_world/models/* ~/.gazebo/models
+```
 
 
 ## Usage
 
 ### 0. Gazebo World
 
-This command will launch the gazebo with the project world
+Use this command to launch the Gazebo World Model.
 
 ```bash
 # Launch Gazebo World together with our robot
 roslaunch me5413_world world.launch
 ```
 
+A keyboard teleop controller has been provided to manually control the robot to move around in the world.
+```bash
+# Launch the teleop controller
+roslaunch me5413_world manual.launch
+```
+
+
 ### 1. Mapping
 
-You can use any SLAM algorithm of your choice. We used A-LOAM to build map for this project.
+A-LOAM algorithm was used to build map in this project. Please refer to the official documentation of A-LOAM to install it on your local machine.
+[A-LOAM documentation](https://github.com/HKUST-Aerial-Robotics/A-LOAM)
 
+A-LOAM generates a 3D map in the form of a point cloud. To convert this 3D point cloud into a 2D grid map, we used the Octomap Server.
 
-As A-LOAM builds 3-D map (point cloud), we used 'octamap server' to convert 3D point cloud to a 2D-grid map. 
-We have provided sample code to launch octampping node and A-LOAM. 
+Sample terminal commands have been provided to launch `A-LOAM` and `Octomapping` nodes.
 
 
 ```bash
 # Launch Octamapping Node
 roslaunch octomap_server octomap_server.launch
-```
 
-```bash
 # Launch A-LOAM
 roslaunch aloam_roslaunch aloam_velodyne aloam_velodyne_VLP_16.launch
-```
-**Note:** After launching A-LOAM, add the following topics in rviz:
-          1. Map topic: /projected_map
-          2. OccupyGrid topic: /octomap_full
-          3. OccupyMap topic: /octomap_binary
 
-After finishing mapping, run the following command in a new terminal to save the map:
+```
+Make sure that appropriate changes are made in the `aloam_velodyne_VLP_16.launch` and `octomap_server.launch` launch files.
+
+**Note:** After launching A-LOAM, add the following topics in rviz:
+* Map topic: /projected_map
+* OccupyGrid topic: /octomap_full
+* OccupyMap topic: /octomap_binary
+
+To generate the occupancy grid map, move the robot around in the world using the provided teleop keyboard controller. Once a satisfactory result is obtained, run the following command to save the map:
 
 ```bash
 # Save the map as `my_map` in the `maps/` folder
@@ -101,14 +136,20 @@ roscd me5413_world/maps/
 rosrun map_server map_saver -f your_map_name map:=/map
 ```
 
-**Note:** Map for A-LOAM is saved in map_improved_1.pgm and map_improved_1.yaml file.
+**Note:** Parameters of our custom map are saved in map_improved_1.pgm and map_improved_1.yaml file.
+
+
+![A-LOAM](src/me5413_world/media/Aloam_map.png)
+
+**Figure:** A-LOAM and Octomapping server running simultaneously 
+
 
 
 ### 2. Navigation
 
-Once mapping is complete, terminate the mapping process and relaunch gazebo.
+After completion of mapping process, relaunch the gazebo world to reset the robot to it's default position.
 
-Load the navigation stack by executing the following command in a new terminal window.
+For this project, Adaptive Monte Carlo (AMCL) particle filter was used for localization. A* algorithm was used for global path planning and Dynamic Window Approach (DWA) was used for local planning. To load the navigation stack, run the following:
 
 ```bash
 # Launch localizer and planner
