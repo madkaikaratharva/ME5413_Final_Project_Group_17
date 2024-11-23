@@ -143,7 +143,7 @@ rosrun map_server map_saver -f your_map_name map:=/map
 
 **Figure:** A-LOAM and Octomapping server running simultaneously 
 
-<img src="src/me5413_world/maps/map_improved_1.pgm", width="500">
+<img src="src/me5413_world/maps/map_improved_1.png", width="500">
 
 **Figure:** Final grid map output
 
