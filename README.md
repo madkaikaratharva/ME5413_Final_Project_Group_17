@@ -139,9 +139,9 @@ rosrun map_server map_saver -f your_map_name map:=/map
 **Note:** Parameters of our custom map are saved in map_improved_1.pgm and map_improved_1.yaml file.
 
 
-<div>
-  <img src="src/me5413_world/media/ALOAM.png" width="300">
-  <img src="src/me5413_world/media/grid_map.png" width="300">
+<div style="display: flex; justify-content: center; gap: 10px;">
+  <img src="src/me5413_world/media/ALOAM.png" width="300" height="500">
+  <img src="src/me5413_world/media/grid_map.png" width="300" height="500">
 </div>
 
 
@@ -155,6 +155,12 @@ For this project, Adaptive Monte Carlo (AMCL) particle filter was used for local
 # Launch localizer and planner
 roslaunch me5413_world navigation.launch
 ```
+
+<div style="display: flex; justify-content: center; gap: 10px;">
+  <img src="src/me5413_world/media/NAV_1.png" width="500" height="300">
+  <img src="src/me5413_world/media/NAV_2.png" width="500" height="300">
+</div>
+
 ## License
 
 The [ME5413_Final_Project](https://github.com/NUS-Advanced-Robotics-Centre/ME5413_Final_Project) is released under the [MIT License](https://github.com/NUS-Advanced-Robotics-Centre/ME5413_Final_Project/blob/main/LICENSE)
