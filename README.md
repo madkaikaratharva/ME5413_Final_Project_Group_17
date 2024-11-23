@@ -139,7 +139,7 @@ rosrun map_server map_saver -f your_map_name map:=/map
 **Note:** Parameters of our custom map are saved in map_improved_1.pgm and map_improved_1.yaml file.
 
 
-<img src="src/me5413_world/media/Aloam_map.png" witdth="500">
+<img src="src/me5413_world/media/ALOAM.png" witdth="1000">
 
 **Figure:** A-LOAM and Octomapping server running simultaneously 
 
